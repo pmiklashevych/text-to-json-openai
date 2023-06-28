@@ -32,4 +32,3 @@ JSON schema:
 - `showChats` - true or false, defaults to false.
 - `duration` - duration in format "number unit", for example "3 days", "5 hours", "30 mins", defaults to null.
 - `onlyNew` - true or false, defaults to false.
-- 
