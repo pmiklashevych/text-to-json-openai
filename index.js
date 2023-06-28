@@ -62,11 +62,14 @@ const assistantReplyMessage = `{
     "onlyNew": false
   }
 }`
-
-// userInput is what the user actually typed in
-const userInput = "I'd like to see all new messages for the last 2 days"
-const userMessage = `user: ${userInput}`
 // endregion
+
+// `process.argv[0]` and `process.argv[1]` represent the Node.js executable and the script file path, respectively.
+const scriptArgs = process.argv.slice(2);
+// If script is run with arguments, apply them as the input, otherwise use the default message.
+// Example of how to provide arguments: `node index.js "This is an example"`
+const userInput = scriptArgs.length > 0 ? scriptArgs[0] : "I'd like to see all new messages for the last 2 days"
+const userMessage = `user: ${userInput}`
 
 async function convertTextToJson(userText) {
   const apiKey = process.env.OPENAI_API_KEY;
