@@ -2,7 +2,10 @@ require('dotenv').config();
 const axios = require('axios');
 
 // region DATA
-const systemMessage = `You are a programmer. Always reply in JSON format.`
+const systemMessage = `You are a programmer. Always reply in JSON format.
+If "showChats" is equal to false, "reply" should be equal to "I don't understand the command. I can show you either all chats, chats for the latest X days, or the new messages.".
+"person" always matches the person who asks the question.
+`;
 
 const userExampleMessage = `A table summarizing who wants to see their chats (messages or rooms). 
 For how many days. And only new or not. If person doesn't want to see the chats, ignore Duration and Only New.
@@ -23,6 +26,8 @@ Nina: Show me your pictures
 Martin: Show me my messages
 Artur: I'd like to see all new chats
 Fred: Show me chats for 3 days
+Jane: Any unread messages I've got?
+Joe: Any unread messages so far?
 `;
 
 const assistantReplyMessage = `{
@@ -60,6 +65,20 @@ const assistantReplyMessage = `{
     "showChats": true,
     "duration": "3 days",
     "onlyNew": false
+  },
+  "Jane": {
+    "request": "Any unread messages I've got?",
+    "reply": "Loading unread messages...",
+    "showChats": true,
+    "duration": null,
+    "onlyNew": true
+  },
+  "Joe": {
+    "request": "Any unread messages so far?",
+    "reply": "Loading unread messages...",
+    "showChats": true,
+    "duration": null,
+    "onlyNew": true
   }
 }`
 // endregion
@@ -99,7 +118,8 @@ async function convertTextToJson(userText) {
     const json = JSON.parse(modelReply);
 
     if (!('user' in json)) {
-      throw new Error('There is no user info in JSON');
+      console.log('Assistant replied:', modelReply);
+      return null;
     }
 
     return json.user;
