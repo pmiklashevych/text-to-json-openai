@@ -1,7 +1,9 @@
 # text-to-json-openai
 A helper to translate user message into a JSON response.
 
-How to run: `npm run start` or `node index.js`
+How to run:
+- Copy `.env.example` to `.env` and update `OPENAI_API_KEY` value. See https://platform.openai.com/account/api-keys.
+- `npm run start` or `node index.js`
 
 Bot:
 ```html
