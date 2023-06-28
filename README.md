@@ -1,6 +1,8 @@
 # text-to-json-openai
 A helper to translate user message into a JSON response.
 
+How to run: `npm run start` or `node index.js`
+
 Bot:
 ```html
 I can show you either all chats, chats for the latest X days, or the new messages.
